@@ -1,5 +1,5 @@
 // Next 3 lines are a precaution, you can ignore those, and the example would also work without them
-#ifndef ARDUINO_ESP32_DEV
+#if !defined(ARDUINO_ESP32_DEV) && !defined(ARDUINO_INKPLATE10)
 #error "Wrong board selection for this example, please select Inkplate 6 in the boards menu."
 #endif
 
@@ -16,14 +16,12 @@ Inkplate display(INKPLATE_1BIT); // Create an object on Inkplate library and als
 #include "ArduinoJson.h";
 #include "icons.h"
 
-char* ssid     = "your superior wlan";
-char* password = "1234567890";
+#include "wifi_credentials.h"
 
-const char query[] = "Hinterposemuckel,de"; // location,country
-const char apiKey[] = ""; // get your own apikey @ api.openweathermap.org
+#include "openweathermap_credentials.h"
 
 
-const char* ntpServer = "192.168.188.1";
+const char* ntpServer = "192.168.178.1";
 //const char* ntpServer = "pool.ntp.org";
 //const long  gmtOffset_sec = 3600;
 //const int   daylightOffset_sec = 3600;
@@ -637,7 +635,7 @@ void parseWeather(const char* charWeather)
   main_temp = tmp / 10.0;
   main_pressure = doc["main"]["pressure"]; // 1014
 
-  strcpy(stadt, "H_rlitz");
+  strcpy(stadt, "Erfurt");
 }
 
 char* check4Umlauts(char* ort)
